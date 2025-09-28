@@ -6,6 +6,6 @@ app = FastAPI()
 class InputData(BaseModel):
     input: str
 
-@app.post("/api/jojo")
+@app.post("/api/predict")
 def predict(data: InputData):
     return []
