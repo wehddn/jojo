@@ -3,10 +3,13 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List, Dict
 import os
+from pathlib import Path
 
 from ner_runtime import load_model, predict_word_bio
 
-MODEL_DIR = os.getenv("MODEL_DIR", "cointegrated/rubert-tiny2")
+REPO_DIR = Path(__file__).resolve().parent
+MODEL_DIR = os.getenv("MODEL_DIR", str(REPO_DIR / "ner_model_rubert2"))
+
 app = FastAPI(title="X5 NER Service")
 
 class InputData(BaseModel):
@@ -14,20 +17,20 @@ class InputData(BaseModel):
 
 @app.on_event("startup")
 def _load():
+    print(f"[startup] Loading model from: {MODEL_DIR}")
     load_model(MODEL_DIR)
 
 @app.get("/healthz")
 def healthz():
-    return {"status":"ok"}
+    return {"status": "ok", "model_dir": MODEL_DIR}
 
 @app.post("/api/predict")
 async def predict(data: InputData) -> List[Dict]:
-    text = data.input or ""
-    if text.strip() == "":
-        return []  # по ТЗ — пустой список
+    text = (data.input or "").strip()
+    if not text:
+        return []
     spans = predict_word_bio(text)
-    # Конвертация в нужный формат (только B-/I- сущности, O в ответ не пишем)
-    result = []
-    for s, e, lab in spans:
-        result.append({"start_index": int(s), "end_index": int(e), "entity": lab})
-    return result
+    return [
+        {"start_index": int(s), "end_index": int(e), "entity": lab}
+        for s, e, lab in spans
+    ]
