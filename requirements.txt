@@ -1,5 +1,9 @@
 fastapi
 uvicorn[standard]
-transformers
-torch
+transformers>=4.36
 numpy
+
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+torchvision
+torchaudio
