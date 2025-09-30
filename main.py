@@ -22,7 +22,7 @@ def _load():
 
 @app.get("/healthz")
 def healthz():
-    return {"status": "ok", "model_dir": MODEL_DIR}
+    return {"status": "ok", "model_dir": MODEL_DIR, "latest_update" : "2025-09-30"}
 
 @app.post("/api/predict")
 async def predict(data: InputData) -> List[Dict]:
