@@ -8,7 +8,7 @@ from pathlib import Path
 from ner_runtime import load_model, predict_word_bio
 
 REPO_DIR = Path(__file__).resolve().parent
-MODEL_DIR = os.getenv("MODEL_DIR", str(REPO_DIR / "ner_model_rubert2"))
+MODEL_DIR = os.getenv("MODEL_DIR", str(REPO_DIR / "model"))
 
 app = FastAPI(title="X5 NER Service")
 
