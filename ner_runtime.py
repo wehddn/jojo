@@ -13,7 +13,7 @@ PUNCT = set(";:,.!?()[]{}«»\"'—–-")
 CFG = {
     "use_margin_rule": True,
     "margin_delta": 0.06,
-    "margin_delta_per_class": {"TYPE":0.08,"BRAND":0.05,"VOLUME":0.02,"PERCENT":0.015},
+    "margin_delta_per_class": {"TYPE":0.07,"BRAND":0.07,"VOLUME":0.02,"PERCENT":0.015},
     "numeric_overrides": True,
     "trim_punct_on_spans": True,
     "word_majority": True,
