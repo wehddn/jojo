@@ -31,11 +31,12 @@
    |-- endpoint /api/predict -> ner_runtime.predict_word_bio()-> токенизация -> инференс -> пост‑правила (margin/regex)
 ```
 
-- **FastAPI сервис**: [main.py](main.py) - точка входа веб‑приложения.
+- **FastAPI сервис**: [main.py](main.py) - точка входа веб‑приложения. Основной endpoint /api/predict принимает JSON с полем "input" (строка), вызывает функцию инференса и возвращает массив JSON-объектов со спанами BIO по словам.
 - **Ядро инференса**: [ner_runtime.py](ner_runtime.py) - загрузка модели/токенайзера и полный пайплайн разметки BIO по словам.
 - **Обучение**: [x5.ipynb](src/x5.ipynb) ([версия .py](src/x5.py)) - скрипт‑ноутбук для тренировки модели (HuggingFace Transformers), сохранение весов в `./model`.
 - **Данные/синтетика**: [gen_synt.py](src/gen_synt.py) - воспроизводимое добавление синтетики (опечатки брендов + числовые шаблоны) в `synthetic_train.csv`.
 
+> Более подробно архитектура описана в [docs/tech_report.md](docs/tech_report.md).
 ---
 
 ## Требования и зависимости
