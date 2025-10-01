@@ -1,5 +1,5 @@
 # Блок 1
-!pip install -q transformers accelerate seqeval
+# !pip install -q transformers accelerate seqeval
 
 # Блок 2
 from transformers import (AutoTokenizer, AutoModelForTokenClassification,
